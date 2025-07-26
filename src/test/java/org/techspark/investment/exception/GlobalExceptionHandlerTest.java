@@ -1,6 +1,5 @@
-package org.techspark.starter.exception;
+package org.techspark.investment.exception;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,19 +28,6 @@ class GlobalExceptionHandlerTest {
         globalExceptionHandler = new GlobalExceptionHandler();
     }
 
-    @Test
-    void handleEntityNotFoundException_ShouldReturnNotFoundResponse() {
-        // Given
-        EntityNotFoundException exception = new EntityNotFoundException("Stock not found");
-
-        // When
-        ResponseEntity<Map<String, String>> response = globalExceptionHandler.handleEntityNotFoundException(exception);
-
-        // Then
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("Entity Not Found", response.getBody().get("error"));
-        assertEquals("Stock not found", response.getBody().get("message"));
-    }
 
     @Test
     void handleValidationException_ShouldReturnBadRequestResponse() {
