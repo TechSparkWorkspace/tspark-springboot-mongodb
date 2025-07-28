@@ -1,45 +1,98 @@
-# Spring Boot Starter Template Repository
+# Investment Portfolio Tracker – Spring Boot + MongoDB
 
-Welcome to the Spring Boot Starter Template Repository! This project provides a ready-to-use Spring Boot Starter setup,
-helping you jumpstart new applications quickly and efficiently.
+This project is a real-world CRUD backend built with Spring Boot 3 and MongoDB. It allows you to track your investment
+transactions (stocks, ETFs, etc.) using a clean and modular architecture. Ideal for learning full-stack dev with real
+use cases.
 
-## Getting Started
+## 🚀 Features
 
-- Click the “Use this template” button at the top of this repository’s page.
-- Provide a name for your new repository and choose whether it should be public or private.
-- Click “Create repository from template” to generate your own copy.
- 
-## Clone Your New Repository
+- 📦 CRUD operations on investment transactions
+- 🧾 RESTful APIs with OpenAPI + Swagger UI
+- 🧠 MongoDB support with Spring Data Mongo
+- 🔁 DTO ↔ Entity mapping using MapStruct
+- 🧼 Clean architecture with service/repository layering
+- 📋 Global exception handling
+- 🔍 Swagger UI for testing APIs
+- 🐳 Docker-compatible MongoDB setup
+- ✅ Feature-based folder structure
 
-- Open your new repository on GitHub.
-- Click the “Code” button and copy the repository URL.
-- Run git clone <your-repo-url> in your terminal to clone the code locally.
+## ⚙️ Getting Started
 
-## Customize Project Settings
+### - Run MongoDB (via Docker)
 
-- Update the build.gradle (Gradle) file with your group ID, artifact ID, or any relevant project information.
-- If necessary, rename packages or modules to suit your organization’s naming conventions.
-
-## Build and Run the Application
-
-```shell
-./gradlew build bootRun
+```bash
+docker run -d \
+--name mongo \
+-p 27017:27017 \
+-e MONGO_INITDB_DATABASE=dev-db \
+mongo:latest
 ```
 
-Open your browser and goto [API Documentation](http://localhost:8080/swagger-ui/index.html)
+This runs MongoDB locally on localhost:27017.
 
-- Access the running application by opening your browser at http://localhost:8080 (unless you changed the port).
+### - Clone and Run the Project
 
-## Starter Template Features
+```bash
+git clone https://github.com/your-username/tspark-investment-portfolio-backend.git
+cd tspark-investment-portfolio-backend
+./gradlew bootRun
+```
 
-This starter template comes with below features.
+### - Configure application.yml
 
-- Spring Boot Web, Validation, JPA, and Actuator
-- SpringDoc OpenAPI with Swagger UI
-- Lombok for reducing boilerplate code
-- MapStruct for DTO-to-Entity conversion
-- H2 In-Memory Database for testing
-- Stock Portfolio CRUD with Service, Repo, Controller
-- Global Exception Handling with @ControllerAdvice
-- JUnit 5 & Mockito for unit testing
-- Feature-based folder structure
+Example config (already included):
+
+```yaml
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/dev-db
+``` 
+
+### - Explore the APIs via Swagger
+
+Open in browser: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+## 🧪 Sample API Usage
+
+### ➕ Create Transaction
+
+```http
+POST /api/portfolio
+{
+  "symbol": "AAPL",
+  "type": "BUY",
+  "quantity": 10,
+  "price": 195.25,
+  "date": "2025-07-21"
+}
+```
+
+### 📥 Get All
+
+```http
+GET /api/portfolio
+```
+
+### 🔄 Update
+
+```http
+PUT /api/portfolio/{id}
+{
+  "symbol": "AAPL",
+  "type": "SELL",
+  "quantity": 5,
+  "price": 200.00,
+  "date": "2025-07-22"
+}
+```
+
+### ❌ Delete
+
+```http
+DELETE /api/portfolio/{id}
+```
+
+## 💡 Want to Learn More?
+
+Check out the companion article: 📘 Build a Real-Time Use Case with MongoDB and Spring Boot
